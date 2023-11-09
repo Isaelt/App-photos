@@ -1,0 +1,9 @@
+.profile-picture{
+    background-image: url('https://loremflickr.com/640/360');
+    width: 3rem;
+    height: 3rem;
+}
+.card-icons{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
