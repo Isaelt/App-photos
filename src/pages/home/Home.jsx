@@ -1,8 +1,6 @@
 import React from 'react'
-import RigthBar from '../../components/rigthbar/RigthBar'
-import SideBar from '../../components/sidebar/sidebar'
+import SideBar from '../../components/sidebar/SideBar'
 import Post from '../../components/posting/Post'
-import Perfiles from '../../components/perfiles/Perfiles'
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { postsData } from '../../data/posts.data';
