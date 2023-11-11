@@ -5,39 +5,61 @@ import Post from '../../components/posting/Post'
 import Perfiles from '../../components/perfiles/Perfiles'
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { postsData } from '../../data/posts.data';
+import ModalDetails from '../../components/modal/ModalDetails'
 
 const Home = () => {
-  const [perfiles, setperfiles] = useState()
+  const [posts, setPosts] = useState()
+  const [model, setModel] = useState(false)
 
 
 
   const getApi = () => {
       axios.get('https://randomuser.me/api/?results=10')
-      .then(res => setperfiles(res.data.results))
+      .then(res => {
+        const users = res.data.results
+        const postsWithUsers = postsData.map((post, i) => ({
+          ...post,
+          user: users[i].name.first + users[i].name.last,
+          image: users[i].picture.thumbnail,
+          id: users[i].cell,
+        }))
+        setPosts(postsWithUsers);
+      })
       .catch(err => console.log(err))
   }
 
-  console.log(perfiles)
 
   useEffect(()=> {
       getApi()
     }, [])
+
   return (
     <div>
       <SideBar/>
       <div>
         {
-          perfiles?.map(perfil=>(
+          model === true ? 
+          <ModalDetails
+          
+          setModel={setModel}
+
+          />: ''
+
+        }
+
+        {
+          posts?.map(post=>(
             <Post
-            key={perfil.cell}
-            name={perfil.name.first}
-            img={perfil.picture.large}
+            key={post.id}
+            post={post}
+            setModel={setModel}
+            
             />
           ))
         }
       </div>
-
-
+     
     </div>
   )
 }
